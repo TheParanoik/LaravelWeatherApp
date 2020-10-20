@@ -56,10 +56,10 @@
                 @foreach ($forecast as $forecast)
 
                 <tr>
-                  <th scope="row">{{ $forecast->date }} </th>
-                  <td>{{ $forecast->day->avgtemp_c }}</td>
-                  <td>{{ $forecast->day->mintemp_c }}</td>
-                  <td>{{ $forecast->day->maxtemp_c }}</td>
+                  <th scope="row">{{ $forecast['date'] }} </th>
+                  <td>{{ $forecast['avgtemp_c'] }}</td>
+                  <td>{{ $forecast['mintemp_c'] }}</td>
+                  <td>{{ $forecast['maxtemp_c'] }}</td>
                 </tr>
 
                 @endforeach

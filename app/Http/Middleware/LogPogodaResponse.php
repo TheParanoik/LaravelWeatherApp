@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LogPogodaResponse
 {
@@ -14,13 +15,21 @@ class LogPogodaResponse
      * @param  \Closure  $next
      * @return mixed
      */
+     public function handle(Request $request, Closure $next)
+     {
+
+
+         return $next($request);
+     }
     public function terminate($request, $response)
     {
+        
+        $forecast = $request->forecastjson;
 
-        // $city = $request->city;
-        // $forecast = $response->forecast;
-        // $current_temp = $response->current_temp;
+        $city = $request->city;
 
-        //DB::table('log')->insert(['city' => $city, 'current_temp' => $current_temp, 'forecast' => $forecast]);
+        $current_temp = $request->current_temp;
+
+        DB::table('log')->insert(['city' => $city, 'current_temp' => $current_temp, 'forecast' => $forecast]);
     }
 }

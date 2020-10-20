@@ -24,4 +24,4 @@ Route::get('/info', function () {
     return phpinfo();
 });
 
-Route::post('/', [pogodaController::class, 'pogoda'])->middleware('pogoda.input', 'pogoda.log');
+Route::post('/', [pogodaController::class, 'pogoda'])->middleware(['pogoda.input', 'pogoda.log']);

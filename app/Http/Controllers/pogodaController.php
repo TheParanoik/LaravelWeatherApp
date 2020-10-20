@@ -46,8 +46,21 @@ class pogodaController extends Controller
       }else{
       $message = "Temperature in ".$request->city.": ".$currentTemperature." Celcius";
         }
-      $forecast = $weatherapiForecast->forecast->forecastday;
+      $forecastresponse = $weatherapiForecast->forecast->forecastday;
 
+
+      $forecast =  array();
+      foreach ($forecastresponse as $key => $value) {
+        $forecast[$key]['date'] = $forecastresponse[$key]->date;
+        $forecast[$key]['avgtemp_c'] = $forecastresponse[$key]->day->mintemp_c;
+        $forecast[$key]['mintemp_c'] = $forecastresponse[$key]->day->mintemp_c;
+        $forecast[$key]['maxtemp_c'] = $forecastresponse[$key]->day->maxtemp_c;
+
+      }
+      unset($forecastresponse);
+
+      $request->forecastjson = json_encode($forecast);
+      $request->current_temp = $currentTemperature;
       return view('pogoda', ['message' => $message, 'forecast' => $forecast]);
     }
 }
